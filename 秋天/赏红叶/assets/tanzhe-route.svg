@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="210" viewBox="0 0 960 210">
+<rect width="960" height="210" fill="#FBF8EF"/>
+<text x="25" y="30" font-size="20" fill="#243D35" font-family="sans-serif">潭柘寺古银杏慢游 · 路线节点示意</text>
+<path d="M176 96 H205" stroke="#C79335" stroke-width="3"/><path d="M198 90 L205 96 L198 102" fill="none" stroke="#C79335" stroke-width="3"/>
+<rect x="24" y="60" width="155" height="78" rx="12" fill="#243D35"/>
+<text x="101" y="93" text-anchor="middle" font-size="16" fill="white" font-family="sans-serif">正式山门</text>
+<path d="M361 96 H390" stroke="#C79335" stroke-width="3"/><path d="M383 90 L390 96 L383 102" fill="none" stroke="#C79335" stroke-width="3"/>
+<rect x="209" y="60" width="155" height="78" rx="12" fill="#243D35"/>
+<text x="286" y="93" text-anchor="middle" font-size="16" fill="white" font-family="sans-serif">主殿区域</text>
+<path d="M546 96 H575" stroke="#C79335" stroke-width="3"/><path d="M568 90 L575 96 L568 102" fill="none" stroke="#C79335" stroke-width="3"/>
+<rect x="394" y="60" width="155" height="78" rx="12" fill="#243D35"/>
+<text x="471" y="93" text-anchor="middle" font-size="16" fill="white" font-family="sans-serif">帝王树·配王树</text>
+<path d="M731 96 H760" stroke="#C79335" stroke-width="3"/><path d="M753 90 L760 96 L753 102" fill="none" stroke="#C79335" stroke-width="3"/>
+<rect x="579" y="60" width="155" height="78" rx="12" fill="#243D35"/>
+<text x="656" y="93" text-anchor="middle" font-size="16" fill="white" font-family="sans-serif">开放上层院落</text>
+<rect x="764" y="60" width="155" height="78" rx="12" fill="#243D35"/>
+<text x="841" y="93" text-anchor="middle" font-size="16" fill="white" font-family="sans-serif">原路回山门</text>
+<text x="25" y="180" font-size="16" fill="#AF4829" font-family="sans-serif">不按比例 · 不代表方位或GPS轨迹 · 节点连接、开放状态以现场导览和工作人员为准</text></svg>
