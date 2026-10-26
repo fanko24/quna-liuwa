@@ -126,10 +126,29 @@
       "status": "推荐",
       "travel_budget": "各城区初步门到门排程预留：自驾60-120分钟；公共交通75-135分钟。这是为了约集合而留的宽缓冲，不是实时导航测算，也不表示每个区都要这么久。西城、海淀、朝阳各自以周五同一时段的导航预计耗时倒推，另加停车步行20-30分钟；远端家庭可能更久。",
       "card_walk": "东门往返本次线路控制3-4公里，约2.5-3小时含休息",
-      "card_day": "09:45景区集合；11:30午饭；14:30-15:00结束。",
+      "card_day": "09:45景区集合；12:30午饭；14:30-15:00结束。",
       "card_note": "半山观京台就是完整本次线路终点；任何孩子疲倦即原路返。",
       "feature": "地铁方便＋轻登高＋城市远眺",
-      "feature_summary": "各城区最容易会合，第一次组队也好安排。"
+      "feature_summary": "各城区最容易会合，第一次组队也好安排。",
+      "photos": [
+        {
+          "file": "assets/baiwang-scene-1.jpg",
+          "alt": "百望山层次分明的山林与登高远景",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TgYO5RfscG",
+          "date_note": "2026-10-20发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/baiwang-scene-2.jpg",
+          "alt": "百望山林间主路：一起慢走、观察彩叶",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TgYO5RfscG",
+          "date_note": "2026-10-20发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "百望山森林公园东门"
     },
     {
       "id": "beigong",
@@ -229,10 +248,29 @@
       "status": "推荐",
       "travel_budget": "各城区初步门到门排程预留：自驾90-150分钟；公共交通120-180分钟。这是为了约集合而留的宽缓冲，不是实时导航测算，也不表示每个区都要这么久。西城、海淀、朝阳各自以周五同一时段的导航预计耗时倒推，另加停车步行20-30分钟；远端家庭可能更久。",
       "card_walk": "本次线路控制3-4公里，含休息约3小时",
-      "card_day": "09:30景区集合；11:30午饭；14:30-15:00结束。",
+      "card_day": "09:30景区集合；12:30午饭；14:30-15:00结束。",
       "card_note": "任何孩子膝腿不适即沿已走过的正规步道返回南门。",
       "feature": "彩林＋湖景＋轻登山",
-      "feature_summary": "颜色丰富、景观变化多，适合一群孩子边爬边玩。"
+      "feature_summary": "颜色丰富、景观变化多，适合一群孩子边爬边玩。",
+      "photos": [
+        {
+          "file": "assets/beigong-scene-1.jpg",
+          "alt": "北宫彩树、桥与水景",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TgYO5RfscG",
+          "date_note": "2026-10-20发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/beigong-scene-2.jpg",
+          "alt": "北宫湖畔木步道与秋树",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TgYO5RfscG",
+          "date_note": "2026-10-20发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "北宫国家森林公园南门"
     },
     {
       "id": "xishan",
@@ -332,10 +370,29 @@
       "status": "推荐",
       "travel_budget": "各城区初步门到门排程预留：自驾90-150分钟；公共交通105-165分钟。这是为了约集合而留的宽缓冲，不是实时导航测算，也不表示每个区都要这么久。西城、海淀、朝阳各自以周五同一时段的导航预计耗时倒推，另加停车步行20-30分钟；远端家庭可能更久。",
       "card_walk": "控制3-4公里、约3小时含观察休息",
-      "card_day": "09:30景区集合；11:30午饭；14:30-15:00结束。",
+      "card_day": "09:30景区集合；12:30午饭；14:30-15:00结束。",
       "card_note": "不爬鬼笑石、不走香巴拉穿越，不跟夜景团。",
       "feature": "红叶山林＋近城徒步",
-      "feature_summary": "想把重点放在看红叶、走山林，选这一条。"
+      "feature_summary": "想把重点放在看红叶、走山林，选这一条。",
+      "photos": [
+        {
+          "file": "assets/xishan-scene-1.jpg",
+          "alt": "西山红绿相间的山林",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TgYO5RfscG",
+          "date_note": "2026-10-20发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/xishan-scene-2.jpg",
+          "alt": "西山逆光秋叶与林间步道",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TgYO5RfscG",
+          "date_note": "2026-10-20发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "北京西山国家森林公园东门"
     },
     {
       "id": "guanghui",
@@ -454,7 +511,26 @@
       "card_day": "09:00景区集合；12:00午饭；15:45-16:00 潭柘寺正式出口结束。",
       "card_note": "定都阁只看合法外侧；进度落后不赶双寺，不绕封闭段。",
       "feature": "古道＋两寺银杏＋定都阁远眺",
-      "feature_summary": "一整天把山林与古建串起来，最接近你认可的徒步思路。"
+      "feature_summary": "一整天把山林与古建串起来，最接近你认可的徒步思路。",
+      "photos": [
+        {
+          "file": "assets/guanghui-scene-1.jpg",
+          "alt": "广慧寺院落古银杏",
+          "source_name": "北京旅游网综合",
+          "source_url": "https://www.visitbeijing.com.cn/article/4TeunGHpU29",
+          "date_note": "2026-10-18发布，拍摄日期未标注；非实时叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/guanghui-scene-2.jpg",
+          "alt": "下午潭柘寺：银杏与古建飞檐",
+          "source_name": "北京旅游网",
+          "source_url": "https://www.visitbeijing.com.cn/article/4P0SilHTGYk",
+          "date_note": "2025-11-05发布的往年秋色资料；非今年实况",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "广慧寺 桑峪村"
     },
     {
       "id": "hongluo",
@@ -554,10 +630,29 @@
       "status": "推荐",
       "travel_budget": "各城区初步门到门排程预留：自驾110-180分钟；公共交通150-240分钟。这是为了约集合而留的宽缓冲，不是实时导航测算，也不表示每个区都要这么久。西城、海淀、朝阳各自以周五同一时段的导航预计耗时倒推，另加停车步行20-30分钟；远端家庭可能更久。",
       "card_walk": "本次线路控制3-4公里、3-3.5小时含休息",
-      "card_day": "09:30景区集合；11:30午饭；15:00-15:30结束。",
+      "card_day": "09:30景区集合；12:30午饭；15:00-15:30结束。",
       "card_note": "主寺区赏树即是有效完成；有人疲倦全队取消山路。",
       "feature": "古银杏＋竹林＋寺后山林",
-      "feature_summary": "一处兼看古树和爬山，景色丰富但车程较长。"
+      "feature_summary": "一处兼看古树和爬山，景色丰富但车程较长。",
+      "photos": [
+        {
+          "file": "assets/hongluo-scene-1.jpg",
+          "alt": "红螺寺金黄银杏与古刹院落",
+          "source_name": "北京旅游网",
+          "source_url": "https://www.visitbeijing.com.cn/article/4P0SilHTGYk",
+          "date_note": "2025-11-05发布的往年秋色资料；非今年实况",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/hongluo-scene-2.jpg",
+          "alt": "红螺寺银杏与大雄宝殿同框",
+          "source_name": "北京旅游网",
+          "source_url": "https://www.visitbeijing.com.cn/article/4P0SilHTGYk",
+          "date_note": "2025-11-05发布的往年秋色资料；非今年实况",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "红螺寺"
     },
     {
       "id": "gudao",
@@ -653,10 +748,29 @@
       "status": "推荐",
       "travel_budget": "各城区初步门到门排程预留：自驾100-160分钟；公共交通135-210分钟。这是为了约集合而留的宽缓冲，不是实时导航测算，也不表示每个区都要这么久。西城、海淀、朝阳各自以周五同一时段的导航预计耗时倒推，另加停车步行20-30分钟；远端家庭可能更久。",
       "card_walk": "2025市文旅局介绍景区徒步约2.1公里、1.5-2小时",
-      "card_day": "09:45景区集合；11:30午饭；14:30-15:00结束。",
+      "card_day": "09:45景区集合；12:30午饭；14:30-15:00结束。",
       "card_note": "原路返回，雨后石板湿滑取消古道；不穿隧道、不沿废弃铁轨走、不临时涉水，不仿照攻略绕锁门。",
       "feature": "马蹄窝＋关城＋古道探秘",
-      "feature_summary": "孩子一路有东西找、有故事听，适合边走边探索。"
+      "feature_summary": "孩子一路有东西找、有故事听，适合边走边探索。",
+      "photos": [
+        {
+          "file": "assets/gudao-scene-1.jpg",
+          "alt": "京西古道蹄窝：石头上的商旅足迹",
+          "source_name": "北京旅游网",
+          "source_url": "https://big5.visitbeijing.com.cn/article/4QLxdKsMG2m",
+          "date_note": "景观资料，拍摄日期未标注；非当季叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/gudao-scene-2.jpg",
+          "alt": "京西古道关城景观",
+          "source_name": "北京旅游网",
+          "source_url": "https://big5.visitbeijing.com.cn/article/4QLxdKsMG2m",
+          "date_note": "景观资料，拍摄日期未标注；非当季叶色",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "京西古道 水峪嘴村"
     },
     {
       "id": "tanzhe",
@@ -756,10 +870,29 @@
       "status": "推荐",
       "travel_budget": "各城区初步门到门排程预留：自驾110-180分钟；公共交通150-240分钟。这是为了约集合而留的宽缓冲，不是实时导航测算，也不表示每个区都要这么久。西城、海淀、朝阳各自以周五同一时段的导航预计耗时倒推，另加停车步行20-30分钟；远端家庭可能更久。",
       "card_walk": "寺内控制2-3公里、2.5-3小时，循正规参观路慢慢上阶。它是山地寺院慢游，不包装成爬山环线。",
-      "card_day": "09:45景区集合；11:30午饭；14:30-15:00结束。",
+      "card_day": "09:45景区集合；12:30午饭；14:30-15:00结束。",
       "card_note": "树叶未黄也不改走未知后山；台阶湿滑只在低位开放院落慢游。",
       "feature": "古银杏＋红墙＋千年古建",
-      "feature_summary": "最适合专门看银杏、拍照和慢慢逛，运动量较少。"
+      "feature_summary": "最适合专门看银杏、拍照和慢慢逛，运动量较少。",
+      "photos": [
+        {
+          "file": "assets/tanzhe-scene-1.jpg",
+          "alt": "潭柘寺古银杏高大树冠",
+          "source_name": "北京旅游网",
+          "source_url": "https://www.visitbeijing.com.cn/article/4P0SilHTGYk",
+          "date_note": "2025-11-05发布的往年秋色资料；非今年实况",
+          "credit": "北京旅游网2025-11-05原文潭柘寺部分标注：小红书@阿茉aMore（11月2日实拍）；依原文署名保留"
+        },
+        {
+          "file": "assets/tanzhe-scene-2.jpg",
+          "alt": "潭柘寺金色银杏枝叶",
+          "source_name": "北京旅游网",
+          "source_url": "https://www.visitbeijing.com.cn/article/4P0SilHTGYk",
+          "date_note": "2025-11-05发布的往年秋色资料；非今年实况",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "潭柘寺"
     },
     {
       "id": "fengcun",
@@ -866,9 +999,28 @@
       "card_day": "09:30景区集合；11:45午饭；14:30-15:00 同一入口结束。",
       "card_note": "不走旧12km/600m不老泉环线，合法入口与当日通行先核。",
       "feature": "栈道登山＋开阔山景＋远眺定都阁",
-      "feature_summary": "走得更像一次爬山，按时间折返，路程可控。"
+      "feature_summary": "走得更像一次爬山，按时间折返，路程可控。",
+      "photos": [
+        {
+          "file": "assets/fengcun-scene-1.jpg",
+          "alt": "定都阁方向的开阔山景与山路资料",
+          "source_name": "北京旅游网景区资料",
+          "source_url": "https://s.visitbeijing.com.cn/attraction/118347",
+          "date_note": "景区外观资料，非冯村实测路线、非秋色实况",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        },
+        {
+          "file": "assets/fengcun-scene-2.jpg",
+          "alt": "定都阁景区山巅建筑与山林资料拼图",
+          "source_name": "北京旅游网景区资料",
+          "source_url": "https://s.visitbeijing.com.cn/attraction/118347",
+          "date_note": "景区外观资料，非冯村实测路线、非秋色实况",
+          "credit": "见原文图片署名；仅作路线景观介绍，不代表拍摄者认可攻略"
+        }
+      ],
+      "map_query": "冯村 门头沟"
     }
   ],
-  "version": "20261026-v2",
+  "version": "20261026-v3",
   "scope": "北京各城区分别出发，自驾或公共交通当天往返；参考约7公里300米强度，每处一个推荐行程，特殊事项备注。"
 }

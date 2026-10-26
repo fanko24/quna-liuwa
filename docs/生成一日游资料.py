@@ -1,5 +1,7 @@
 """唯一方案数据 -> GitHub文档、节点示意、长图、PDF。"""
 import json,html,re
+from urllib.parse import quote
+from PIL import ImageOps
 from pathlib import Path
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
@@ -18,8 +20,8 @@ N=len(P);VERSION=D['version']
 FONT='/System/Library/Fonts/Supplemental/Arial Unicode.ttf'
 pdfmetrics.registerFont(TTFont('CN',FONT))
 INK='#243D35';RED='#AE4B2B';PAPER='#FBF8EF';GOLD='#BD903D'
-PDF=OUT/'pdf/北京赏红叶与银杏_一日游方案_20261026_v2.pdf'
-PNG=OUT/'北京赏红叶与银杏_一日游长图_20261026_v2.png'
+PDF=OUT/'pdf/北京赏红叶与银杏_一日游方案_20261026_v3.pdf'
+PNG=OUT/'北京赏红叶与银杏_一日游长图_20261026_v3.png'
 TRANSPORT='各家庭从西城、海淀、朝阳等实际地址分别出发，在景区入口集合，不先绕到一个市区点。出门时刻=集合时刻-本家当日路线预计耗时-停车/步行20至30分钟。各方案的分钟数只是跨城排程宽预算，不是导航实测；不能把行政区当成一个固定起点。'
 RETURN='普通线路约14:30至15:30点名解散，广慧寺两寺一阁约15:45至16:00结束；各家按实际交通回城，不承诺相同到家时间。10月底日落约17:13，山谷会更早暗，山路以16:00前结束为目标。公交家庭必须在周五核去返班次、末班和末段接驳，不能靠下山临时叫车。'
 RULE='评分为主观规划比较：秋色25、儿童25、交通15、舒适15、人流10、确定性10；每项0-5分，换算=分项/5×权重。约7公里、爬升300米是用户认可的参考，不表示12公里600米也等强度；同名路线须核同一轨迹。'
@@ -35,20 +37,24 @@ def svg(p):
  (BASE/'assets'/f'{p["id"]}-route.svg').write_text('\n'.join(a))
 def make_md():
  for i,p in enumerate(P,1):
-  svg(p)
+  svg(p);route_map(p)
   s=f'# {p["name"]}：一日攻略\n\n> {p["tag"]}｜排名{i}/{N}｜{VERSION}｜8-9岁孩子｜基准周末10月31日至11月1日。各城区出发，当天往返；未实地踩线或电话预订。\n\n'
   s+=f'**特点：{p["feature"]}。{p["feature_summary"]}**\n\n'
+  s+=photo_md(p)
   s+='## 评分\n\n| 维度 | 0-5分 | 换算分 | 理由 |\n|---|---:|---:|---|\n'
   for (n,w),v,reason in zip(DIM,p['scores'],p['reasons']):s+=f'| {n}（{w}） | {v:.1f} | {v*w/5:.1f} | {reason} |\n'
   s+=f'\n**总分{p["total"]:.1f}/100。** [统一评分说明](README.md#评分与排序)。\n\n'
   s+='## 从全市各处怎么会合\n\n**集合：**'+p['meeting']+'。\n\n**结束：**'+p['finish']+'。\n\n'+TRANSPORT+'\n\n'+p['travel_budget']+'\n\n**自驾：**'+p['drive']+'\n\n**公共交通：**'+p['transit']+'\n\n**迟到：**出发前30分钟在家长群报预计抵达时刻；缓冲窗口内集合，超过窗口由领队决定全队等候还是安排成人陪迟到家庭在入口会合。不得让儿童独自在山路追队。\n\n'
-  s+='## 路线与景色\n\n'+p['walk']+'\n\n'+f'![路线节点示意](assets/{p["id"]}-route.svg)\n\n'+' → '.join(p['nodes'])+'。\n\n'+p['extra']+'\n\n**打卡点**\n\n'+'\n'.join('- '+x for x in p['spots'])+'\n\n**赏秋时机：**'+p['season']+'\n\n'
+  s+='## 路线与景色\n\n'+p['walk']+'\n\n'+f'![路线规划图](assets/{p["id"]}-plan.png)\n\n'+' → '.join(p['nodes'])+'。\n\n'+p['extra']+'\n\n**打卡点**\n\n'+'\n'.join('- '+x for x in p['spots'])+'\n\n**赏秋时机：**'+p['season']+'\n\n'
   s+='## 一天怎么安排\n\n各时间为组织建议，不是节点实测。吃饭、拍照、休息和停车接近均算进一天；能当天往返不等于必须把所有加量段走完。\n\n| 时间 | 安排 |\n|---|---|\n'+'\n'.join(f'| {t} | {v} |' for t,v in p['day'])+'\n\n'
   for title,key in [('吃饭与备用午餐','food'),('厕所、补水与休息','facilities'),('门票、开放与预约','ticket'),('家庭预算','budget'),('缩短路线与撤退','retreat'),('给孩子的观察任务','game')]:s+=f'## {title}\n\n{p[key]}\n\n'
   if p['id']=='tanzhe':s+='![潭柘寺门楼历史实景](assets/tanzhe-gate-20251109.jpg)\n\nN509FZ，2025-11-09，CC BY-SA 4.0；不是本周叶色，也不是帝王树定位图。[完整署名](assets/README.md)。\n\n'
-  s+='## 资料与仍待确认\n\n'+p['ugc']+'\n\n'+'\n'.join(f'- [{name}]({url})' for name,url in p['sources'])+'\n\n旧照片、成人轨迹、官方稳定规则和本周开放分开看。停车费、门票优惠、餐馆营业、接驳均须临期核实。未授权原图不打包，原帖可要求登录。\n\n[返回方案总览](README.md) · [行前准备](出行准备与安全.md)\n'
+  s+='## 资料与仍待确认\n\n'+p['ugc']+'\n\n'+'\n'.join(f'- [{name}]({url})' for name,url in p['sources'])+'\n\n旧照片、成人轨迹、官方稳定规则和本周开放分开看。停车费、门票优惠、餐馆营业、接驳均须临期核实。照片出处与时间见图下注及图片署名页；原帖可要求登录。\n\n[返回方案总览](README.md) · [行前准备](出行准备与安全.md)\n'
   (BASE/p['file']).write_text(s)
  intro=f'# 北京赏红叶与银杏：{N}个亲子一日选择\n\n> {VERSION}｜北京西城、海淀、朝阳等各城区分别出发｜8-9岁小队｜自驾或公共交通当天往返｜参考强度约7公里、爬升300米，可安排完整一天。千灵山和不再推荐的独立旧页已移除。\n\n'
+ intro+='## 看图选路线\n\n'
+ for i,p in enumerate(P,1):
+  intro+=f'### {i}. [{p["name"]}]({p["file"]}) · {p["total"]:.1f}分\n\n**{p["feature"]}**：{p["feature_summary"]}\n\n'+photo_md(p,True)
  intro+='## 每处有什么特点\n\n| 地点 | 一句话特点 |\n|---|---|\n'
  for p in P:intro+=f'| [{p["name"]}]({p["file"]}) | **{p["feature"]}**：{p["feature_summary"]} |\n'
  intro+='\n地铁会合优先百望山；彩林与登山结合选北宫、西山；全天山林加古银杏选广慧寺两寺一阁；冯村推荐栈道往返与远眺。每处一个推荐行程，特殊情况写备注。\n\n'
@@ -62,8 +68,9 @@ def make_md():
  intro+='## 分享文件\n\n- [新版精简长图](../../output/'+PNG.name+')\n- [新版PDF一日游攻略](../../output/pdf/'+PDF.name+')\n- [图片署名](assets/README.md)\n- [行前准备](出行准备与安全.md)\n\n资料来源分别列在各方案。没有实地踩线、电话订餐、买票或承诺有停车位。部分2025小红书原帖未取得正文，使用去年官方秋季资料对照，不宣称全渠道覆盖。\n'
  (BASE/'README.md').write_text(intro)
  root='# 去哪遛娃\n\n北京四季亲子出游方案库。按孩子体力、季节、实际交通、吃饭与撤返规划。\n\n| 季节 | 入口 |\n|---|---|\n| 春天 | [春天](春天/README.md) |\n| 夏天 | [夏天](夏天/README.md) |\n| 秋天 | [秋天](秋天/README.md) |\n| 冬天 | [冬天](冬天/README.md) |\n\n## 当前主题：北京赏红叶与银杏\n\n'+f'{N}个当天往返选择，{VERSION}。各城区分别出发、在景区集合；接受约7公里300米强度，每处一个推荐行程，特殊情况简短备注。\n\n'
+ root+='![百望山登高与山林景观](秋天/赏红叶/assets/baiwang-scene-1.jpg)\n\n照片来自[北京旅游网2026-10-20文章](https://www.visitbeijing.com.cn/article/4TgYO5RfscG)，拍摄日期未标注，非实时叶色。\n\n'
  root+='- [总览、评分、全市出发安排](秋天/赏红叶/README.md)\n'+'\n'.join(f'- [{i}. {p["name"]}](秋天/赏红叶/{p["file"]})' for i,p in enumerate(P,1))+'\n\n'
- root+=f'- [群分享长图](output/{PNG.name})\n- [PDF一日攻略](output/pdf/{PDF.name})\n\n图为节点示意，不作GPS导航；开放、交通、票价和用餐临期核对。实景图片按来源许可署名，未授权原图不收录。仓库不保存儿童姓名、家庭地址、证件、会话令牌等私人信息。\n'
+ root+=f'- [群分享长图](output/{PNG.name})\n- [PDF一日攻略](output/pdf/{PDF.name})\n\n图为节点示意，不作GPS导航；开放、交通、票价和用餐临期核对。实景照片标明来源与资料年份，不作为当日叶色保证。仓库不保存儿童姓名、家庭地址、证件、会话令牌等私人信息。\n'
  (ROOT/'README.md').write_text(root)
  (ROOT/'秋天/README.md').write_text(f'# 秋天\n\n[北京赏红叶与银杏：{N}个一日选择](赏红叶/README.md)\n\n{VERSION}，各城区当天往返，独立评分、一日攻略、路线图、交通与吃饭同步更新。\n\n[返回四季首页](../README.md)\n')
 
@@ -96,47 +103,6 @@ def page_body(c,p,size,draw=True):
  y=para(c,'<b>依据与版本</b> '+esc(p['ugc']),32,y,531,size-0.8,draw)
  links=' · '.join(f'<a href="{esc(u)}" color="#AE4B2B">[{i}] {esc(n)}</a>' for i,(n,u) in enumerate(p['sources'],1))
  return para(c,links,32,y,531,size-1.1,draw)
-def make_pdf():
- c=canvas.Canvas(str(PDF),pagesize=(595,842));c.setTitle(f'北京赏红叶与银杏：{N}个一日选择');c.setAuthor('去哪遛娃')
- bg(c);tx(c,'去哪遛娃 / AUTUMN 2026',32,802,11,RED);tx(c,'北京赏红叶与银杏',32,765,28)
- tx(c,f'{N}个亲子一日选择',32,730,21)
- para(c,'各城区分别出发，当天自驾或公共交通往返<br/>8-9岁小队；认可约7公里/300米强度；每处一个推荐行程。',32,710,531,10)
- c.drawImage(str(BASE/'assets/tanzhe-gate-20251109.jpg'),160,473,width=275,height=183,mask='auto')
- tx(c,'潭柘寺历史实拍 / N509FZ / 2025-11-09 / CC BY-SA 4.0 / 非今年叶色',32,461,7)
- c.linkURL('https://commons.wikimedia.org/wiki/File:Entrance_gatetower_of_Tanzhe_Temple_(20251109144630).jpg',(32,454,563,468))
- y=432
- for i,p in enumerate(P,1):
-  tx(c,f'{i:02d} {p["name"]}',32,y,12);tx(c,f'{p["total"]:.1f}',514,y,13,RED)
-  para(c,esc(p['tag']),57,y-8,445,8.5);y-=37
- y=para(c,esc(RULE),32,y,531,8)
- y=para(c,'广慧寺回村后转潭柘寺；冯村推荐栈道往返与远眺，不承诺入阁。各页集合、饭点与结束时刻和GitHub、长图一致。',32,y,531,8,True,RED)
- assert y>45,y
- foot(c,1);c.showPage()
- for i,p in enumerate(P,1):
-  bg(c);tx(c,f'{i:02d} {p["name"]}',32,801,21);tx(c,f'{p["total"]:.1f}/100',461,801,14,RED)
-  tx(c,p['feature']+'｜'+p['feature_summary'],32,777,9.2,RED);tx(c,score(p),32,756,7.8)
-  y=diagram(c,p,744)
-  y=para(c,'<b>步行与强度</b> '+esc(p['walk']),32,y,531,9)
-  if y<606: # 长线说明较长时压缩该段字体，保持正文共同起点。
-   # 本段在首次绘制后不叠印：长文本由更小字号重新整页绘制。
-   c.setFillColor(HexColor(PAPER));c.rect(30,605,535,65,fill=1,stroke=0)
-   y=para(c,'<b>步行与强度</b> '+esc(p['walk']),32,667,531,8)
-  assert y>604,(p['id'],y)
-  size=9.4
-  while size>=7.8 and page_body(c,p,size,False)<48:size-=0.2
-  assert size>=7.8,(p['id'],size)
-  last=page_body(c,p,size,True);assert last>45,(p['id'],last)
-  foot(c,i+1);c.showPage()
- bg(c);tx(c,'各城区会合与行前核对',32,799,23)
- y=para(c,esc(TRANSPORT),32,765,531,11)
- y=para(c,'<b>倒推出门时刻</b><br/>例如09:30集合：本家导航90分钟、停车步行25分钟，约07:35出门；另一家导航50分钟，同样缓冲，则约08:15出门。这是算例，不是某个区的固定车程。',32,y-6,531,11)
- y=para(c,esc(RETURN),32,y-6,531,11)
- for p in P:
-  y=para(c,f'<b>{esc(p["name"])}</b>：{esc(p["meeting"])}；结束{esc(p["finish"])}。',32,y,531,9)
- y=para(c,'<b>出发前一天</b>：家长群确认人数、车辆/公交方案、准确入口定位、去返路线、午饭、天气预警、当日开放和儿童票。熟路成人核同一轨迹与退出点。普通游线允许弹性调整，封闭、锁门、施工区不绕入。',32,y-6,531,10,True,RED)
- y=para(c,'<a href="https://github.com/fanko24/quna-liuwa" color="#AE4B2B">GitHub最新总览与每条攻略</a> · <a href="https://www.timeanddate.com/sun/china/beijing?month=10&amp;year=2026" color="#AE4B2B">北京10月日落参考</a>',32,y,531,9)
- assert y>45,y
- foot(c,N+2);c.showPage();c.save()
 def make_long():
  W=1200;H=1180+N*450
  im=Image.new('RGB',(W,H),PAPER);dr=ImageDraw.Draw(im)
@@ -177,6 +143,98 @@ def make_long():
  text('详细攻略、评分理由与来源见同版PDF/GitHub；不走封闭路段、不绕锁门。',48,y+12,22)
  assert y+75<H,(y,H)
  im=im.crop((0,0,W,y+75));im.save(PNG)
+
+def photo_md(p,overview=False):
+ out=''
+ for ph in p['photos'][:1] if overview else p['photos']:
+  file=ph['file']
+  out+=f"![{ph['alt']}]({file})\n\n*{ph['alt']}。{ph['date_note']}。[图片来源：{ph['source_name']}]({ph['source_url']})。*\n\n"
+ return out
+
+def route_map(p):
+ # 游览顺序图，不虚构方位、坐标、道路几何或实测距离。
+ w,h=1400,620;im=Image.new('RGB',(w,h),PAPER);dr=ImageDraw.Draw(im)
+ f=lambda n:ImageFont.truetype(FONT,n)
+ dr.text((48,24),p['name']+' · 路线规划',font=f(39),fill=INK)
+ dr.text((48,86),'入口集合 → 按顺序游览 → 休息 / 午饭 → 按时返回',font=f(25),fill=RED)
+ # 五个编号点，以阅读顺序串起线路，明确与地理导航的区别。
+ pts=[(150,220),(690,220),(1230,220),(960,410),(370,410)]
+ for i in range(4):
+  x,y=pts[i];xx,yy=pts[i+1];dr.line((x,y,xx,yy),fill=GOLD,width=5)
+  mx,my=(x+xx)//2,(y+yy)//2;dr.ellipse((mx-18,my-18,mx+18,my+18),fill=GOLD);dr.text((mx-7,my-16),'›',font=f(26),fill='white')
+ for i,((x,y),name) in enumerate(zip(pts,p['nodes']),1):
+  dr.rounded_rectangle((x-138,y-62,x+138,y+72),radius=18,fill=INK)
+  dr.text((x-115,y-48),str(i).zfill(2),font=f(25),fill='#E7C989')
+  # 简单换行，不把文字截断。
+  for j in range(0,len(name),10):dr.text((x-117,y-7+(j//10)*34),name[j:j+10],font=f(25),fill='white')
+ if p['id']=='guanghui':dr.text((770,505),'④ → ⑤ 需乘车：回村取车，再到潭柘寺正式入口',font=f(23),fill=RED)
+ else:dr.text((48,505),'途中按最慢孩子调整；折返点不是强制打卡终点，疲倦可提前原路返。',font=f(24),fill=RED)
+ dr.text((48,556),'这是游览顺序规划图：不按比例、不表示方位，不能替代景区导览或GPS轨迹。',font=f(23),fill=INK)
+ im.save(BASE/'assets'/f'{p["id"]}-plan.png')
+
+def photo_fit(c,path,x,y,w,h):
+ im=Image.open(path).convert('RGB');im.thumbnail((1800,1800))
+ # contain 保留水印与完整构图，不为版式裁掉署名。
+ from reportlab.lib.utils import ImageReader
+ iw,ih=im.size;scale=min(w/iw,h/ih);ww,hh=iw*scale,ih*scale
+ c.setFillColor(HexColor('#EEE9DC'));c.rect(x,y,w,h,fill=1,stroke=0)
+ c.drawImage(ImageReader(im),x+(w-ww)/2,y+(h-hh)/2,ww,hh)
+
+def make_pdf():
+ c=canvas.Canvas(str(PDF),pagesize=(595,842));c.setTitle(f'北京赏红叶与银杏：{N}个亲子一日攻略');c.setAuthor('去哪遛娃')
+ # 首页：完整评分对照表，让群里先比较再翻攻略。
+ bg(c);tx(c,'北京赏红叶与银杏',32,798,27);tx(c,'8个亲子一日选择 · 评分与特点',32,764,17,RED)
+ y=para(c,'各城区分别出发，当天往返。适合8-9岁小队；约7公里/300米是认可的参考强度。评分为规划比较，不是实测或景区评级。',32,742,531,10)
+ widths=[25,107,35,35,35,35,35,35,38,151];scale=531/sum(widths);widths=[v*scale for v in widths]
+ heads=['序','方案','秋色25','儿童25','交通15','舒适15','人流10','确定10','总分','核心特点']
+ x=32;top=y-8;rh=40
+ for j,(v,w) in enumerate(zip(heads,widths)):
+  c.setFillColor(HexColor(INK));c.rect(x,top-rh,w,rh,fill=1,stroke=0);para(c,v,x+3,top-10,w-6,7.4,color='#FFFFFF');x+=w
+ top-=rh
+ for i,p in enumerate(P,1):
+  vals=[str(i),p['name']]+[f'{v*w/5:.1f}' for v,(_,w) in zip(p['scores'],DIM)]+[f'{p["total"]:.1f}',p['feature']]
+  x=32;rh=57
+  for v,w in zip(vals,widths):
+   c.setFillColor(HexColor('#FFFFFF' if i%2 else '#F1EBDC'));c.rect(x,top-rh,w,rh,fill=1,stroke=0)
+   para(c,esc(v),x+3,top-11,w-6,8 if w>45 else 7.5);x+=w
+  top-=rh
+ y=para(c,'<b>怎么选</b>：首次组队与地铁会合选百望山；彩林、湖景和轻爬山选北宫；专注红叶选西山；愿意用完整一天走山林加古银杏选广慧寺。',32,top-20,531,10)
+ y=para(c,'<b>本册用法</b>：每条路线先看景色与规划图，再看完整行程。照片注明来源与资料日期；路线图表示游览顺序，不能作为GPS导航。特别注意冯村不保证到阁，广慧寺到潭柘寺含乘车衔接。',32,y-5,531,9.5)
+ assert y>45,y;foot(c,1);c.showPage()
+ for i,p in enumerate(P,1):
+  # 每条第一面：两张代表景色 + 路线规划 + 会合交通。
+  bg(c);tx(c,f'{i:02d} {p["name"]}',32,801,22);tx(c,f'{p["total"]:.1f}/100',465,801,14,RED)
+  y=para(c,'<b>'+esc(p['feature'])+'</b> · '+esc(p['feature_summary']),32,780,531,10.2)
+  for j,ph in enumerate(p['photos'][:2]):
+   x=32+j*270;photo_fit(c,BASE/ph['file'],x,484,261,260)
+   para(c,esc(ph['alt']),x,477,261,9)
+   yy=para(c,esc(ph['date_note']),x,444,261,7.4)
+   para(c,f'<a href="{esc(ph["source_url"])}" color="#AE4B2B">图片来源：{esc(ph["source_name"])}</a>',x,yy,261,7.4)
+  c.drawImage(str(BASE/'assets'/f'{p["id"]}-plan.png'),32,155,width=531,height=235)
+  y=para(c,'<b>会合</b> '+esc(p['meeting'])+'；<b>结束</b> '+esc(p['finish']),32,146,531,9.3)
+  y=para(c,esc(p['travel_budget']),32,y,531,8.2)
+  url='https://www.amap.com/search?query='+quote(p['map_query'])
+  y=para(c,f'<a href="{url}" color="#AE4B2B">打开高德地图搜索：{esc(p["map_query"])}</a> · 以攻略约定入口为准；地名搜索结果需核对。',32,y,531,8)
+  assert y>42,(p['id'],y);foot(c,2*i);c.showPage()
+  # 每条第二面：原有详细一日攻略，保留主要文字内容。
+  bg(c);tx(c,p['name']+' · 一日安排',32,801,21);tx(c,score(p),32,776,7.8)
+  y=para(c,'<b>推荐线路</b> '+esc(p['walk']),32,756,531,9.2)
+  y=para(c,esc(p['extra']),32,y,531,8.8)
+  y=para(c,'<b>给孩子的任务</b> '+esc(p['game']),32,y,531,8.8)
+  assert y>608,(p['id'],y)
+  size=9.4
+  while size>=7.8 and page_body(c,p,size,False)<48:size-=0.2
+  last=page_body(c,p,size,True);assert last>45,(p['id'],last)
+  foot(c,2*i+1);c.showPage()
+ bg(c);tx(c,'各城区会合 · 出发前核对',32,799,23)
+ y=para(c,esc(TRANSPORT),32,760,531,10.5);y=para(c,esc(RETURN),32,y-8,531,10.5)
+ y=para(c,'<b>前一天家长群确认</b>：人数、车辆与公交方案、准确入口、去返路线、午饭、天气与预警、当日开放、儿童票。熟路成人核同一轨迹与退出点；封闭、锁门、施工区不绕入。',32,y-8,531,10.5)
+ y=para(c,'<b>随身</b>：防滑鞋、分层保暖、替换汗湿内层、温水、午饭与加餐、个人药品、垃圾袋。成人准备充电宝、离线地图与应急头灯；不因此安排夜行。',32,y-8,531,10.5)
+ y=para(c,'<b>选片与署名</b>：公开资料照片仅用于介绍景观，未调换季节或改叶色；原文图片署名见各页来源链接，权利归原摄影者。2025照片只作历史参考，2026文章配图也不等于本周实拍。冯村使用定都阁方向景观资料，不作为同线秋色和通行证明。',32,y-8,531,10)
+ y=para(c,'<b>预算与安排</b>：各条餐费、票费均是规划参考，未电话订位、购票或实地踩线。不因满日行程强行走完；全队按最慢孩子调整。',32,y-8,531,10)
+ y=para(c,'<a href="https://github.com/fanko24/quna-liuwa" color="#AE4B2B">打开GitHub：评分理由、详细攻略与图片来源</a>',32,y-8,531,10)
+ assert y>45;foot(c,2*N+2);c.showPage();c.save()
+
 def main():
  make_md();make_pdf();make_long()
  print(json.dumps({'version':VERSION,'count':N,'ranking':[(p['name'],p['total']) for p in P],'pdf':str(PDF),'long':str(PNG)},ensure_ascii=False,indent=2))
