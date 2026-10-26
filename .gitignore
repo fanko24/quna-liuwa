@@ -1,0 +1,7 @@
+.DS_Store
+**/.DS_Store
+.env
+.env.*
+私人记录/
+本地资料/
+*.tmp
