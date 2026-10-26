@@ -178,7 +178,7 @@ def photo_fit(c,path,x,y,w,h):
  from reportlab.lib.utils import ImageReader
  iw,ih=im.size;scale=min(w/iw,h/ih);ww,hh=iw*scale,ih*scale
  c.setFillColor(HexColor('#EEE9DC'));c.rect(x,y,w,h,fill=1,stroke=0)
- c.drawImage(ImageReader(im),x+(w-ww)/2,y+(h-hh)/2,ww,hh)
+ c.drawImage(str(path),x+(w-ww)/2,y+(h-hh)/2,ww,hh)
 
 def make_pdf():
  c=canvas.Canvas(str(PDF),pagesize=(595,842));c.setTitle(f'北京赏红叶与银杏：{N}个亲子一日攻略');c.setAuthor('去哪遛娃')
